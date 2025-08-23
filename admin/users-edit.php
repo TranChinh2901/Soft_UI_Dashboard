@@ -10,7 +10,16 @@
                 </h4>
             </div>
             <div class="card-body">
-                <form action="users-create.php" method="POST">
+                <form action="code.php" method="POST">
+                    <?php 
+                    $paramResult = checkParamId('id'); 
+                    if(!is_numeric($paramResult)) {
+                        echo $paramResult;
+                        return false;
+                    } 
+
+                    $user = getById('users', $paramResult);
+                    ?>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -55,7 +64,7 @@
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" name="is_ban" id="is_ban">
                                 <label class="form-check-label" for="is_ban">
-                                    Select User
+                                    is Ban
                                 </label>
                             </div>
                         </div>

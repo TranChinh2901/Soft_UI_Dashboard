@@ -10,7 +10,8 @@
                 </h4>
             </div>
             <div class="card-body">
-                <form action="users-create.php" method="POST">
+                <?= alertMessage(); ?>
+                <form action="code.php" method="POST">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -43,7 +44,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="role" class="form-label">Select Role</label>
-                                <select name="role" id="role" class="forsm-select" required>
+                                <select name="role" id="role" class="form-select" required>
                                     <option value="" disabled selected>Select Role</option>
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
@@ -55,7 +56,7 @@
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" name="is_ban" id="is_ban">
                                 <label class="form-check-label" for="is_ban">
-                                    Select User
+                                    is Ban
                                 </label>
                             </div>
                         </div>
