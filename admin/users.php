@@ -46,7 +46,10 @@
 
                                     <td style="display: flex; gap: 8px;">
                                         <a href="users-edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="users-delete.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                        <a 
+                                        onclick="return confirm('Are you sure you want to delete this user?');"
+                                        href="users-delete.php?id=<?= $row['id']; ?>" 
+                                        class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
                             <?php

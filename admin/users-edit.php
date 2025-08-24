@@ -10,6 +10,8 @@
                 </h4>
             </div>
             <div class="card-body">
+                <?php echo alertMessage(); ?>
+                
                 <form action="code.php" method="POST">
                     <?php 
                     $paramResult = checkParamId('id'); 
@@ -19,50 +21,54 @@
                     } 
 
                     $user = getById('users', $paramResult);
-                    ?>
-                    <div class="row g-3">
+                    if($user['status'] == 200) 
+                        {
+                            ?> 
+                                <input  type="hidden" class="form-control" name="userId" value="<?php echo $user['data']['id']; ?>" required>
+
+                                   <div class="row g-3">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input value="<?php echo $user['data']['name']; ?>" type="text" class="form-control" id="name" name="name" required>
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone number</label>
-                                <input type="text" class="form-control" id="phone" name="phone" required>
+                                <input value="<?php echo $user['data']['phone']; ?>" type="text" class="form-control" id="phone" name="phone" required>
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input value="<?php echo $user['data']['email']; ?>" type="email" class="form-control" id="email" name="email" required>
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input value="<?php echo $user['data']['password']; ?>" type="password" class="form-control" id="password" name="password" required>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="role" class="form-label">Select Role</label>
-                                <select name="role" id="role" class="form-select" required>
+                                <select  name="role" id="role" class="form-select" required>
                                     <option value="" disabled selected>Select Role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="user">User</option>
+                                    <option value="admin" <?php echo ($user['data']['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+                                    <option value="user" <?php echo ($user['data']['role'] == 'user') ? 'selected' : ''; ?>>User</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-4 d-flex align-items-center">
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" name="is_ban" id="is_ban">
+                                <input class="form-check-input" type="checkbox" name="is_ban" id="is_ban" <?php echo ($user['data']['is_ban']) ? 'checked' : ''; ?>>
                                 <label class="form-check-label" for="is_ban">
                                     is Ban
                                 </label>
@@ -73,6 +79,13 @@
                             <button type="submit" name="updateUser" class="btn btn-primary">Update User</button>
                         </div>
                     </div>
+                            <?php
+                    } else {
+                        echo '<h5>'.$user['message'].'</h5>';
+                        return false;
+                    }
+                    ?>
+                  
                 </form>
             </div>
         </div>
