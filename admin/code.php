@@ -55,4 +55,20 @@ if(isset($_POST['updateUser'])) {
     redirect('users-create.php', 'Please fill all the fields');
    }
 }
+
+
+if(isset($_POST['saveSetting'])) {
+    $title = validate($_POST['title']);
+    $slug = validate($_POST['slug']);
+    $small_description = validate($_POST['small_description']);
+    $meta_description = validate($_POST['meta_description']);
+    $meta_keyword = validate($_POST['meta_keyword']);
+    $email1 = validate($_POST['email1']);
+    $email2 = validate($_POST['email2']);
+    $phone1 = validate($_POST['phone1']);
+    $phone2 = validate($_POST['phone2']);
+    $address = validate($_POST['address']);
+
+   $settingId = validate($_POST['settingId']);
+}
 ?>

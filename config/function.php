@@ -9,6 +9,12 @@ function validate($inputData)
    return trim($validatedData);
 }
 
+function logoutSession() {
+   unset($_SESSION['auth']);
+   unset($_SESSION['loggedInUser']);
+   unset($_SESSION['loggedInUserRole']);
+}
+
 function redirect($url, $status)
 {
    $_SESSION["status"] = $status;
@@ -87,7 +93,7 @@ function deleteQuery( $tableName, $id) {
    global $conn;
    $table = validate($tableName);
    $id = validate($id);
-   
+
    $query = "DELETE FROM $table WHERE id='$id' LIMIT 1";
    $result = mysqli_query($conn, $query);
    return $result;

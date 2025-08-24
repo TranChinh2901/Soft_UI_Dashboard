@@ -1,5 +1,8 @@
 
-<?php include('../config/function.php'); ?>
+<?php 
+include('../config/function.php'); 
+include('authentication.php')
+?>
 <!DOCTYPE html>
 <html lang="en">
 
