@@ -70,5 +70,20 @@ if(isset($_POST['saveSetting'])) {
     $address = validate($_POST['address']);
 
    $settingId = validate($_POST['settingId']);
+
+   if($settingId == 'insert') {
+    $query = "INSERT INTO settings ( title, slug, small_description, meta_description, meta_keyword, email1, email2, phone1, phone2, address)
+    VALUES ('$title', '$slug', '$small_description', '$meta_description', '$meta_keyword', '$email1', '$email2', '$phone1', '$phone2', '$address')";
+    $result = mysqli_query($conn, $query);
+}
+if(is_numeric($settingId)) {
+    $query = "UPDATE settings SET title='$title', slug='$slug', small_description='$small_description', meta_description='$meta_description', meta_keyword='$meta_keyword', email1='$email1', email2='$email2', phone1='$phone1', phone2='$phone2', address='$address' WHERE id='$settingId' LIMIT 1";
+    $result = mysqli_query($conn, $query);
+}
+    if($result) {
+        redirect('settings.php', 'Settings saved ');
+    } else {
+        redirect('settings.php', 'Something went wrong');
+    }
 }
 ?>

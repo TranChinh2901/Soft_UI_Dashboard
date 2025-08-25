@@ -6,28 +6,32 @@
                 <h4 class="mb-0">Settings</h4>
             </div>
             <div class="card-body">
+                <?= alertMessage(); ?>
                 <form action="code.php" method="POST">
-                <input type="hidden" name="settingId" value="insert" >    
+                    <?php 
+                    $setting = getById('settings', 1);
+                    ?>
+                <input type="hidden" name="settingId" value="<?= $setting['data']['id'] ?? 'insert' ?>" >    
                 <div class="mb-3">
                         <label for="">Title</label>
-                        <input type="text" name="title" class="form-control" required>
+                        <input type="text" name="title" class="form-control" value="<?= $setting['data']['title'] ?? '' ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="">URL / Domain</label>
-                        <input type="text" name="slug" class="form-control" required>
+                        <input type="text" name="slug" class="form-control" value="<?= $setting['data']['slug'] ?? '' ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="">Small Description</label>
-                        <input type="text" name="small_description" class="form-control" required>
+                        <input type="text" name="small_description" class="form-control" value="<?= $setting['data']['small_description'] ?? '' ?>" required>
                     </div>
                     <h4 class="my-3"> SEO Settings</h4>
                     <div class="mb-3">
                         <label for="">Meta Description</label>
-                        <textarea name="meta_description" class="form-control" rows="3" required></textarea>
+                        <textarea name="meta_description" class="form-control" rows="3" required><?= $setting['data']['meta_description'] ?? '' ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="">Meta Keyword</label>
-                        <textarea name="meta_keyword" class="form-control" rows="3" required></textarea>
+                        <textarea name="meta_keyword" class="form-control" rows="3" required><?= $setting['data']['meta_keyword'] ?? '' ?></textarea>
                     </div>
 
 
@@ -35,25 +39,25 @@
                     <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="">Email 1</label>
-                        <input type="text" name="email1" class="form-control" required>
+                        <input type="text" name="email1" class="form-control" value="<?= $setting['data']['email1'] ?? '' ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Email 2</label>
-                        <input type="text" name="email2" class="form-control" required>
+                        <input type="text" name="email2" class="form-control" value="<?= $setting['data']['email2'] ?? '' ?>">
                     </div>
 
                      <div class="col-md-6 mb-3">
                         <label for="">Phone 1</label>
-                        <input type="text" name="phone1" class="form-control" required>
+                        <input type="text" name="phone1" class="form-control" value="<?= $setting['data']['phone1'] ?? '' ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Phone 2</label>
-                        <input type="text" name="phone2" class="form-control" required>
+                        <input type="text" name="phone2" class="form-control" value="<?= $setting['data']['phone2'] ?? '' ?>">
                     </div>
 
                     <div class="col-md-12 mb-3">
                         <label for="">Address</label>
-                        <textarea name="address" class="form-control" rows="3" required></textarea>
+                        <textarea name="address" class="form-control" rows="3" required><?= $setting['data']['address'] ?? '' ?></textarea>
                     </div>
                     </div>
 
