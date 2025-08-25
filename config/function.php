@@ -8,7 +8,14 @@ function validate($inputData)
    $validatedData =  mysqli_real_escape_string($conn, $inputData);
    return trim($validatedData);
 }
-
+function webSetting ($columnName) {
+   $setting = getById('settings', 1);
+   if($setting['status'] == 200) {
+      return $setting['data'][$columnName];
+   } else {
+      return false;
+   }
+}
 function logoutSession() {
    unset($_SESSION['auth']);
    unset($_SESSION['loggedInUser']);
