@@ -24,23 +24,30 @@
                     </thead>
                     <tbody>
                          <?php
-                        $users = getAll('social_medias');
-                        if (mysqli_num_rows($users) > 0) {
-                            while ($row = mysqli_fetch_assoc($users)) {
+                        $socialMedias = getAll('social_medias');
+                        if($socialMedias) {
+
+                        if (mysqli_num_rows($socialMedias) > 0) {
+                            while ($row = mysqli_fetch_assoc($socialMedias)) {
                         ?>
                                 <tr>
                                     <td><?= $row['id']; ?></td>
                                     <td><?= $row['name']; ?></td>
                                     <td><?= $row['url']; ?></td>
-                                    <td><?= $row['status']; ?></td>
-                                    
-                                  
+                                    <td>
+                                        <?php if ($row['status'] == 1): ?>
+                                            <span class="text-danger">Hidden</span>
+                                        <?php else: ?>
+                                            <span class="text-success">Show</span>
+                                        <?php endif; ?>
+                                    </td>
+
 
                                     <td style="display: flex; gap: 8px;">
-                                        <a href="users-edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="social-media-edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
                                         <a 
                                         onclick="return confirm('Are you sure you want to delete this user?');"
-                                        href="users-delete.php?id=<?= $row['id']; ?>" 
+                                        href="social-media-delete.php?id=<?= $row['id']; ?>" 
                                         class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
@@ -49,10 +56,17 @@
                         } else {
                             ?>
                             <tr>
-                                <td colspan="7" class="text-center">No Data</td>
+                                <td colspan="5" class="text-center">No Data</td>
                             </tr>
                         <?php
                         }
+                          } else {
+                            ?>
+                            <tr>
+                                <td colspan="5" class="text-center">Something went wrong</td>
+                            </tr>
+                        <?php
+                          }
                         ?>
                     </tbody>
                 </table>

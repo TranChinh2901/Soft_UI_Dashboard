@@ -111,3 +111,73 @@ if (isset($_POST['saveSocialMedia'])) {
         redirect('users-create.php', 'Please fill all the fields');
     }
 }
+
+
+if (isset($_POST['updateSocialMedia'])) {
+    $name = validate($_POST['name']);
+    $url = validate($_POST['url']);
+    $status = validate($_POST['status']) ==  true ? 1 : 0;
+    $socialMediaId = validate($_POST['socialMediaId']);
+
+    if ($name != "" && $url != "") {
+        $query = "UPDATE social_medias SET name='$name', url='$url', status='$status' WHERE id='$socialMediaId' LIMIT 1";
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+            redirect('social-media.php', 'Social Media Updated Successfully');
+        } else {
+            redirect('social-media-edit.php?id=' . $socialMediaId, 'Something went wrong');
+        }
+    } else {
+        redirect('social-media-edit.php?id=' . $socialMediaId, 'Please fill all the fields');
+    }
+}
+
+
+if (isset($_POST['saveService'])) {
+    $name = validate($_POST['name']);
+    $slug = str_replace(' ', '-', strtolower($name));
+    $small_description = validate($_POST['small_description']);
+    $long_description = validate($_POST['long_description']);
+
+    if ($_FILES['image']['size'] > 0) {
+        $image = $_FILES['image']['name'];
+
+        $imgFileType = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+        if($imgFileType != 'jpg' && $imgFileType != 'png' && $imgFileType != 'jpeg') {
+            redirect('services-create.php', 'Invalid image format');
+        }
+
+        $path = "../assets/uploads/services/";
+        
+        // Tạo thư mục nếu chưa tồn tại
+        if (!file_exists($path)) {
+            mkdir($path , true);
+        }
+        
+        $imgExt = pathinfo($image, PATHINFO_EXTENSION);
+        $filename = time() . '.' . $imgExt;
+
+        $finalImage = 'assets/uploads/services/' . $filename;
+    } else {
+        $finalImage = NULL;
+    }
+
+
+    $meta_title = validate($_POST['meta_title']);
+    $meta_description = validate($_POST['meta_description']);
+    $meta_keyword = validate($_POST['meta_keyword']);
+    $status = validate($_POST['status']) ==  true ? 1 : 0;
+
+    $query = "INSERT INTO services (name, slug, small_description, long_description, image, meta_title, meta_description, meta_keyword, status) 
+    VALUES ('$name', '$slug', '$small_description', '$long_description', '$finalImage', '$meta_title', '$meta_description', '$meta_keyword', '$status')";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        if ($_FILES['image']['size'] > 0) {
+            move_uploaded_file($_FILES['image']['tmp_name'], $path . $filename);
+        }
+
+        redirect('services.php', 'Service Added Successfully');
+    } else {
+        redirect('services.php?id=' . $serviceId, 'Something went wrong');
+    }
+}
