@@ -141,19 +141,11 @@ if (isset($_POST['saveService'])) {
 
     if ($_FILES['image']['size'] > 0) {
         $image = $_FILES['image']['name'];
-
-        $imgFileType = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-        if($imgFileType != 'jpg' && $imgFileType != 'png' && $imgFileType != 'jpeg') {
-            redirect('services-create.php', 'Invalid image format');
+        $imgFileTypes = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+        if($imgFileTypes != 'jpg' && $imgFileTypes != 'png' && $imgFileTypes != 'jpeg'  ) {
+            redirect('services-create.php', 'Sorry, only JPG, JPEG, PNG files are allowed.');
         }
-
         $path = "../assets/uploads/services/";
-        
-        // Tạo thư mục nếu chưa tồn tại
-        if (!file_exists($path)) {
-            mkdir($path , true);
-        }
-        
         $imgExt = pathinfo($image, PATHINFO_EXTENSION);
         $filename = time() . '.' . $imgExt;
 
@@ -178,6 +170,6 @@ if (isset($_POST['saveService'])) {
 
         redirect('services.php', 'Service Added Successfully');
     } else {
-        redirect('services.php?id=' . $serviceId, 'Something went wrong');
+        redirect('services.php?id=' , 'Something went wrong');
     }
 }
