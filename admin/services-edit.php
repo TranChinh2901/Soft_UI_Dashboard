@@ -25,7 +25,7 @@
                             {
                     ?>
 
-
+                                <input type="hidden" name="serviceId" value="<?= $service['data']['id'] ?>">
                             <div class="mb-3">
                                 <label class="form-label"> Service Name</label>
                                 <input type="text" name="name" class="form-control" value="<?= $service['data']['name'] ?>" required>
@@ -67,10 +67,10 @@
                             <div class="mb-3">
                                 <label class="form-label"> Status (Checked=hidden, un-checked=visible)</label>
                                 <br>
-                                <input type="checkbox" name="status" style="width: 30px; height: 30px;">
+                                <input type="checkbox" name="status" style="width: 30px; height: 30px;" <?= $service['data']['status'] == 1 ? 'checked' : '' ?>>
                             </div>
                             <div class="mb-3 text-end">
-                                <button type="submit" name="saveService" class="btn btn-primary">Save Services</button>
+                                <button type="submit" name="updateService" class="btn btn-primary">Update Services</button>
                             </div>
 
                     <?php

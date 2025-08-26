@@ -32,12 +32,12 @@
                                 <tr>
                                     <td><?= $row['id']; ?></td>
                                     <td><?= $row['name']; ?></td>
-                                    <td><?= $row['status']; ?></td>
+                                    
                                     <td>
-                                        <?php if ($row['is_ban'] == 1): ?>
-                                            <span class="badge bg-danger text-white ">banned</span>
+                                        <?php if ($row['status'] == 1): ?>
+                                            <span class="badge bg-danger text-white ">Hidden</span>
                                         <?php else: ?>
-                                            <span class="badge bg-success text-white">active</span>
+                                            <span class="badge bg-success text-white">Visible</span>
                                         <?php endif; ?>
                                     </td>
 
