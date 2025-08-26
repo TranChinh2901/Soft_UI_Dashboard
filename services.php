@@ -10,21 +10,35 @@ include 'includes/header.php';
 </div>
 <div class="py-5 bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card shadow-sm">
-                    <img src="assets/images/no-image.png" class="w-100 rounded " alt="Img">
-                    <div class="card-body">
-                        <h5>Service Name</h5>
-                        <p>
-                            Service small description
-                        </p>
-                        <h4>small content</h4>
-                        <a href="service.php?slug=" class="text-primary">Read More</a>
-                    </div>
+       <div class="row g-4">
+    <?php
+    $services = getAll('services');
+    if (mysqli_num_rows($services) > 0) {
+        while ($row = mysqli_fetch_assoc($services)) {
+            $image = !empty($row['image']) ? $row['image'] : 'assets/images/no-image.png';
+    ?>
+        <div class="col-md-3 d-flex">
+            <div class="card shadow-sm w-100">
+                <img src="<?php echo $image; ?>" class="card-img-top" alt="Service Image" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><?php echo $row['name']; ?></h5>
+                    <p class="card-text flex-grow-1"><?php echo $row['small_description']; ?></p>
+                    <a href="service.php?slug=<?php echo $row['slug']; ?>" class="text-primary mt-auto">Read More</a>
                 </div>
             </div>
         </div>
+    <?php
+        }
+    } else {
+    ?>
+        <div class="col-12 text-center">
+            <p>No Services Available</p>
+        </div>
+    <?php
+    }
+    ?>
+</div>
+
     </div>
 
 </div>
