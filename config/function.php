@@ -107,3 +107,12 @@ function deleteQuery( $tableName, $id) {
 }
 
 
+// Create function to limit words 
+function limitWords($string, $limit = 50) {
+   $words = explode("", strip_tags($string));
+   if(count($words) > $limit) {
+      $words = array_slice($words, 0, $limit);
+      return implode(" ", $words) . "...";
+   }
+   return implode(" ", $words);
+}
